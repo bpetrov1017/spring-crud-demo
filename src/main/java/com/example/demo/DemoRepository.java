@@ -15,10 +15,10 @@ public interface DemoRepository extends JpaRepository<DemoEntity, String> {
 
     @Query("""
         SELECT e FROM DemoEntity e
-        WHERE (e.modifiedAt < :cursorTime)
-        ORDER BY e.modifiedAt DESC
+        WHERE 
+            (e.modifiedAt < :cursorTime)
+            OR (e.modifiedAt = :cursorTime AND e.id < :cursorId)
+        ORDER BY e.modifiedAt DESC, e.id DESC
     """)
-    List<DemoEntity> findNextPage(
-        @Param("cursorTime") Instant cursorTime
-    );
+    List<DemoEntity> findNextPage(@Param("cursorTime") Instant cursorTime, @Param("cursorId") String cursorId);
 }

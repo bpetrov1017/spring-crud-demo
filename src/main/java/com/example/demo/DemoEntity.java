@@ -9,9 +9,7 @@ public class DemoEntity {
 
     @Id
     private String id;
-
     private String title;
-
     private Instant modifiedAt;
 
     @PrePersist
